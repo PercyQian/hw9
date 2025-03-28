@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatrixMapTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hw9</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">MatrixMapTest.java</span></div><h1>MatrixMapTest.java</h1><pre class="source lang-java linenums">import org.junit.Test;
+import static org.junit.Assert.*;
+import java.util.function.Function;
+
+
+
+// Test class for MatrixMap
+<span class="fc" id="L8">public class MatrixMapTest {</span>
+    
+    @Test
+    public void testMatrixMapInstance() {
+        // Test creating a matrix with row/column coordinates
+<span class="fc" id="L13">        MatrixMap&lt;Integer&gt; matrix = MatrixMap.instance(3, 3, indexes -&gt; </span>
+<span class="fc" id="L14">            indexes.row() * 10 + indexes.column());</span>
+        
+        // Check dimensions
+<span class="fc" id="L17">        assertEquals(&quot;Matrix should have correct row size&quot;, 3, matrix.size().row());</span>
+<span class="fc" id="L18">        assertEquals(&quot;Matrix should have correct column size&quot;, 3, matrix.size().column());</span>
+        
+        // Check values
+<span class="fc" id="L21">        assertEquals(&quot;Matrix should have correct value at (0,0)&quot;, Integer.valueOf(0), matrix.value(0, 0));</span>
+<span class="fc" id="L22">        assertEquals(&quot;Matrix should have correct value at (0,1)&quot;, Integer.valueOf(1), matrix.value(0, 1));</span>
+<span class="fc" id="L23">        assertEquals(&quot;Matrix should have correct value at (1,0)&quot;, Integer.valueOf(10), matrix.value(1, 0));</span>
+<span class="fc" id="L24">        assertEquals(&quot;Matrix should have correct value at (2,2)&quot;, Integer.valueOf(22), matrix.value(2, 2));</span>
+<span class="fc" id="L25">    }</span>
+    
+    @Test
+    public void testMatrixMapInstanceWithIndexes() {
+        // Test creating a matrix with Indexes object
+<span class="fc" id="L30">        Indexes size = new Indexes(2, 3);</span>
+<span class="fc" id="L31">        MatrixMap&lt;String&gt; matrix = MatrixMap.instance(size, </span>
+<span class="fc" id="L32">            indexes -&gt; &quot;(&quot; + indexes.row() + &quot;,&quot; + indexes.column() + &quot;)&quot;);</span>
+        
+        // Check dimensions
+<span class="fc" id="L35">        assertEquals(&quot;Matrix should have correct row size&quot;, 2, matrix.size().row());</span>
+<span class="fc" id="L36">        assertEquals(&quot;Matrix should have correct column size&quot;, 3, matrix.size().column());</span>
+        
+        // Check values
+<span class="fc" id="L39">        assertEquals(&quot;Matrix should have correct value at (0,0)&quot;, &quot;(0,0)&quot;, matrix.value(0, 0));</span>
+<span class="fc" id="L40">        assertEquals(&quot;Matrix should have correct value at (0,2)&quot;, &quot;(0,2)&quot;, matrix.value(0, 2));</span>
+<span class="fc" id="L41">        assertEquals(&quot;Matrix should have correct value at (1,1)&quot;, &quot;(1,1)&quot;, matrix.value(1, 1));</span>
+<span class="fc" id="L42">    }</span>
+    
+    @Test
+    public void testConstantMatrix() {
+        // Test creating a constant matrix
+<span class="fc" id="L47">        MatrixMap&lt;Integer&gt; matrix = MatrixMap.constant(3, 42);</span>
+        
+        // Check dimensions
+<span class="fc" id="L50">        assertEquals(&quot;Constant matrix should have correct row size&quot;, 3, matrix.size().row());</span>
+<span class="fc" id="L51">        assertEquals(&quot;Constant matrix should have correct column size&quot;, 3, matrix.size().column());</span>
+        
+        // Check that all values are the constant
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        for (int i = 0; i &lt; 3; i++) {</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">            for (int j = 0; j &lt; 3; j++) {</span>
+<span class="fc" id="L56">                assertEquals(&quot;All values should be the constant&quot;, Integer.valueOf(42), matrix.value(i, j));</span>
+            }
+        }
+<span class="fc" id="L59">    }</span>
+    
+    @Test
+    public void testIdentityMatrix() {
+        // Test creating an identity matrix
+<span class="fc" id="L64">        MatrixMap&lt;Integer&gt; matrix = MatrixMap.identity(3, 0, 1);</span>
+        
+        // Check dimensions
+<span class="fc" id="L67">        assertEquals(&quot;Identity matrix should have correct row size&quot;, 3, matrix.size().row());</span>
+<span class="fc" id="L68">        assertEquals(&quot;Identity matrix should have correct column size&quot;, 3, matrix.size().column());</span>
+        
+        // Check diagonal values
+<span class="fc" id="L71">        assertEquals(&quot;Diagonal values should be identity&quot;, Integer.valueOf(1), matrix.value(0, 0));</span>
+<span class="fc" id="L72">        assertEquals(&quot;Diagonal values should be identity&quot;, Integer.valueOf(1), matrix.value(1, 1));</span>
+<span class="fc" id="L73">        assertEquals(&quot;Diagonal values should be identity&quot;, Integer.valueOf(1), matrix.value(2, 2));</span>
+        
+        // Check non-diagonal values
+<span class="fc" id="L76">        assertEquals(&quot;Non-diagonal values should be zero&quot;, Integer.valueOf(0), matrix.value(0, 1));</span>
+<span class="fc" id="L77">        assertEquals(&quot;Non-diagonal values should be zero&quot;, Integer.valueOf(0), matrix.value(1, 0));</span>
+<span class="fc" id="L78">        assertEquals(&quot;Non-diagonal values should be zero&quot;, Integer.valueOf(0), matrix.value(0, 2));</span>
+<span class="fc" id="L79">    }</span>
+    
+    @Test
+    public void testFromArray() {
+        // Test creating a matrix from a 2D array
+<span class="fc" id="L84">        Integer[][] array = {</span>
+<span class="fc" id="L85">            {1, 2, 3},</span>
+<span class="fc" id="L86">            {4, 5, 6}</span>
+        };
+        
+<span class="fc" id="L89">        MatrixMap&lt;Integer&gt; matrix = MatrixMap.from(array);</span>
+        
+        // Check dimensions
+<span class="fc" id="L92">        assertEquals(&quot;Matrix from array should have correct row size&quot;, 2, matrix.size().row());</span>
+<span class="fc" id="L93">        assertEquals(&quot;Matrix from array should have correct column size&quot;, 3, matrix.size().column());</span>
+        
+        // Check values
+<span class="fc" id="L96">        assertEquals(&quot;Matrix should have correct value from array&quot;, Integer.valueOf(1), matrix.value(0, 0));</span>
+<span class="fc" id="L97">        assertEquals(&quot;Matrix should have correct value from array&quot;, Integer.valueOf(3), matrix.value(0, 2));</span>
+<span class="fc" id="L98">        assertEquals(&quot;Matrix should have correct value from array&quot;, Integer.valueOf(4), matrix.value(1, 0));</span>
+<span class="fc" id="L99">        assertEquals(&quot;Matrix should have correct value from array&quot;, Integer.valueOf(6), matrix.value(1, 2));</span>
+<span class="fc" id="L100">    }</span>
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidRowLength() {
+        try {
+<span class="nc" id="L105">            MatrixMap.InvalidLengthException.requirePositive(MatrixMap.InvalidLengthException.Cause.ROW, 0);</span>
+<span class="nc" id="L106">            fail(&quot;Should throw exception for zero length&quot;);</span>
+<span class="fc" id="L107">        } catch (IllegalArgumentException e) {</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">            if (e.getCause() instanceof MatrixMap.InvalidLengthException) {</span>
+<span class="fc" id="L109">                MatrixMap.InvalidLengthException ile = (MatrixMap.InvalidLengthException) e.getCause();</span>
+<span class="fc" id="L110">                assertEquals(MatrixMap.InvalidLengthException.Cause.ROW, ile.getCauseType());</span>
+<span class="fc" id="L111">                assertEquals(0, ile.getLength());</span>
+<span class="fc" id="L112">                throw e;</span>
+            } else {
+<span class="nc" id="L114">                fail(&quot;Expected InvalidLengthException as cause&quot;);</span>
+            }
+<span class="nc" id="L116">        }</span>
+<span class="nc" id="L117">    }</span>
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidColumnLength() {
+<span class="nc" id="L121">        MatrixMap.InvalidLengthException.requirePositive(</span>
+            MatrixMap.InvalidLengthException.Cause.COLUMN, -1);
+<span class="nc" id="L123">    }</span>
+    
+    @Test
+    public void testToString() {
+<span class="fc" id="L127">        MatrixMap&lt;String&gt; matrix = MatrixMap.instance(2, 2, </span>
+<span class="fc" id="L128">            indexes -&gt; &quot;(&quot; + indexes.row() + &quot;,&quot; + indexes.column() + &quot;)&quot;);</span>
+        
+<span class="fc" id="L130">        String str = matrix.toString();</span>
+<span class="fc" id="L131">        assertNotNull(&quot;toString should not return null&quot;, str);</span>
+<span class="fc" id="L132">        assertTrue(&quot;toString should contain matrix entries&quot;, </span>
+<span class="pc bpc" id="L133" title="2 of 4 branches missed.">            str.contains(&quot;(0,0)&quot;) &amp;&amp; str.contains(&quot;(0,1)&quot;) &amp;&amp; </span>
+<span class="pc bpc" id="L134" title="2 of 4 branches missed.">            str.contains(&quot;(1,0)&quot;) &amp;&amp; str.contains(&quot;(1,1)&quot;));</span>
+<span class="fc" id="L135">    }</span>
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNegativeRowsMatrix() {
+        // 测试负行数
+<span class="nc" id="L140">        MatrixMap.instance(-1, 5, indexes -&gt; 0);</span>
+<span class="nc" id="L141">    }</span>
+    
+    @Test
+    public void testEdgeCaseMatrix() {
+        // 测试1x1矩阵
+<span class="fc" id="L146">        MatrixMap&lt;Integer&gt; matrix = MatrixMap.instance(1, 1, indexes -&gt; 42);</span>
+<span class="fc" id="L147">        assertEquals(&quot;Matrix should have 1 row&quot;, 1, matrix.size().row());</span>
+<span class="fc" id="L148">        assertEquals(&quot;Matrix should have 1 column&quot;, 1, matrix.size().column());</span>
+<span class="fc" id="L149">        assertEquals(&quot;Value at (0,0) should be 42&quot;, Integer.valueOf(42), matrix.value(0, 0));</span>
+<span class="fc" id="L150">    }</span>
+    
+    @Test(expected = NullPointerException.class)
+    public void testNullValueRejection() {
+        // 测试null值应该被拒绝
+<span class="nc" id="L155">        MatrixMap&lt;Integer&gt; matrix = MatrixMap.instance(2, 2, indexes -&gt; </span>
+<span class="pc bpc" id="L156" title="2 of 4 branches missed.">            indexes.row() == 0 &amp;&amp; indexes.column() == 0 ? null : 1);</span>
+        // 这里应该抛出NullPointerException，因为valueMapper返回的null被拒绝
+<span class="nc" id="L158">    }</span>
+    
+    @Test
+    public void testMatrixSizeWithNoEntries() {
+        // 我们不能测试0列的矩阵，因为 MatrixMap 不允许维度为0
+        // 测试最小允许尺寸的矩阵 (1x1)
+<span class="fc" id="L164">        MatrixMap&lt;Integer&gt; singleElementMatrix = MatrixMap.instance(1, 1, indexes -&gt; 42);</span>
+<span class="fc" id="L165">        assertEquals(&quot;Single element matrix should have 1 row&quot;, 1, singleElementMatrix.size().row());</span>
+<span class="fc" id="L166">        assertEquals(&quot;Single element matrix should have 1 column&quot;, 1, singleElementMatrix.size().column());</span>
+<span class="fc" id="L167">        assertEquals(&quot;Value at (0,0) should be 42&quot;, Integer.valueOf(42), singleElementMatrix.value(0, 0));</span>
+<span class="fc" id="L168">    }</span>
+    
+    @Test
+    public void testValueWithIndexes() {
+        // 测试使用Indexes对象获取值
+<span class="fc" id="L173">        MatrixMap&lt;Integer&gt; matrix = MatrixMap.instance(2, 2, indexes -&gt; indexes.row() + indexes.column());</span>
+<span class="fc" id="L174">        Indexes idx = new Indexes(1, 0);</span>
+<span class="fc" id="L175">        assertEquals(&quot;Should retrieve correct value with Indexes object&quot;, Integer.valueOf(1), matrix.value(idx));</span>
+<span class="fc" id="L176">    }</span>
+    
+    @Test(expected = NullPointerException.class)
+    public void testValueWithNullIndexes() {
+        // 测试用null索引获取值应抛出异常
+<span class="fc" id="L181">        MatrixMap&lt;Integer&gt; matrix = MatrixMap.instance(2, 2, indexes -&gt; 1);</span>
+<span class="nc" id="L182">        matrix.value((Indexes)null);</span>
+<span class="nc" id="L183">    }</span>
+    
+    @Test
+    public void testNonRectangularArrayCreation() {
+        // 测试从非矩形数组创建矩阵
+<span class="fc" id="L188">        Integer[][] jagged = new Integer[][] {</span>
+<span class="fc" id="L189">            {1, 2, 3},</span>
+<span class="fc" id="L190">            {4, 5, 6}  // 改为完整的行</span>
+        };
+        
+        // 应该使用第一行的长度作为列数
+<span class="fc" id="L194">        MatrixMap&lt;Integer&gt; matrix = MatrixMap.from(jagged);</span>
+<span class="fc" id="L195">        assertEquals(&quot;Should have 2 rows&quot;, 2, matrix.size().row());</span>
+<span class="fc" id="L196">        assertEquals(&quot;Should have 3 columns&quot;, 3, matrix.size().column());</span>
+<span class="fc" id="L197">        assertEquals(&quot;Value at (0,0) should be 1&quot;, Integer.valueOf(1), matrix.value(0, 0));</span>
+<span class="fc" id="L198">        assertEquals(&quot;Value at (1,1) should be 5&quot;, Integer.valueOf(5), matrix.value(1, 1));</span>
+<span class="fc" id="L199">        assertEquals(&quot;Value at (1,2) should be 6&quot;, Integer.valueOf(6), matrix.value(1, 2));</span>
+<span class="fc" id="L200">    }</span>
+    
+    @Test
+    public void testNonRectangularArraySize() {
+        // 测试有行但所有行都有完整数据
+<span class="fc" id="L205">        Integer[][] nonRect = new Integer[][] {</span>
+<span class="fc" id="L206">            {1, 2, 3},</span>
+<span class="fc" id="L207">            {4, 5, 6}, // 这行有完整的元素</span>
+<span class="fc" id="L208">            {7, 8, 9}  // 这行有完整的元素</span>
+        };
+        
+<span class="fc" id="L211">        MatrixMap&lt;Integer&gt; matrix = MatrixMap.from(nonRect);</span>
+<span class="fc" id="L212">        assertEquals(&quot;Matrix should have 3 rows&quot;, 3, matrix.size().row());</span>
+<span class="fc" id="L213">        assertEquals(&quot;Matrix should have 3 columns&quot;, 3, matrix.size().column());</span>
+<span class="fc" id="L214">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
