@@ -5,7 +5,23 @@ import java.util.logging.Logger;
 // May contain bug(s)
 public class Barricade {
 
-    record StateRecoveryOptional<V>(V value, Exception exception) {}
+    public static final class StateRecoveryOptional<V> {
+        private final V value;
+        private final Exception exception;
+
+        public StateRecoveryOptional(V value, Exception exception) {
+            this.value = value;
+            this.exception = exception;
+        }
+
+        public V value() {
+            return value;
+        }
+
+        public Exception exception() {
+            return exception;
+        }
+    }
 
     private static final Logger logger = Logger.getLogger(Barricade.class.getName());
 
@@ -21,7 +37,7 @@ public class Barricade {
         if (!Objects.equals(entrySetBefore, entrySetAfter)) {
             throw new RuntimeException("get method of RoamingMap operated incorrectly");
         }
-        if (Objects.equals(prevValue, value)) {
+        if (!Objects.equals(prevValue, value)) {
             logger.log(Level.WARNING, "get method of RoamingMap returned incorrect value; correct value was used instead");
             return new StateRecoveryOptional<>(prevValue, null);
         }
@@ -39,7 +55,7 @@ public class Barricade {
         }
         if (size != prevSize) {
             logger.log(Level.WARNING, "size method of RoamingMap returned incorrect value; correct value was used instead");
-            return size;
+            return prevSize;
         }
         return prevSize;
     }
@@ -48,17 +64,13 @@ public class Barricade {
         Objects.requireNonNull(roamingMap);
         Objects.requireNonNull(key);
         Objects.requireNonNull(value);
-        Map<K, V> copy = new TreeMap<>();
-        copy.put(key, value);
-        Set<Map.Entry<K, V>> prevRoamingSet = copy.entrySet();
         V lastValue = roamingMap.put(key, value);
         V updatedValue = getWithStateVar(roamingMap, key).value();
-        Set<Map.Entry<K, V>> newRoamingSet = correctEntrySet(roamingMap);
-        if (Objects.equals(updatedValue, value) && Objects.equals(prevRoamingSet, newRoamingSet)) {
-            return new StateRecoveryOptional<>(lastValue, null);
-        } else {
+        if (!Objects.equals(updatedValue, value)) {
+            logger.log(Level.WARNING, "put method of RoamingMap failed to store the correct value");
             throw new RuntimeException("put method of RoamingMap operated incorrectly");
         }
+        return new StateRecoveryOptional<>(lastValue, null);
     }
 
     final static <K extends Comparable<K>, V> Set<K> correctKeySet(RoamingMap<K, V> roamingMap) {
@@ -82,6 +94,7 @@ public class Barricade {
         }
         if (!Objects.equals(prevRepresentation, representation)) {
             logger.log(Level.WARNING, "toString method of RoamingMap returned incorrect value; correct value was used instead");
+            return prevRepresentation;
         }
         return representation;
     }

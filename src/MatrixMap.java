@@ -122,15 +122,15 @@ public final class MatrixMap<T> {
     /**
      * Returns the Matrix instance with matrix that has size defined by input size, all values in diagonal indexes as identity, all other values as zero
      * @param size the size to define the matrix's size
-     * @param zero the zero value for element of type S
-     * @param identity the identity value for element of type S
+     * @param nonDiagonalValue the value for element of type S that is not in diagonal
+     * @param diagonalValue the value for element of type S that is in diagonal
      * @return the Matrix instance with matrix that has size defined by input size, all values in diagonal indexes as identity, all other values as zero
      * @param <S> the generic type
      */
-    public static <S> MatrixMap<S> identity(int size, S zero, S identity) {
-        Objects.requireNonNull(zero);
-        Objects.requireNonNull(identity);
-        return instance(size, size, indexes -> (!indexes.areDiagonal() ? identity : zero));
+    public static <S> MatrixMap<S> identity(int size, S nonDiagonalValue, S diagonalValue) {
+        Objects.requireNonNull(nonDiagonalValue);
+        Objects.requireNonNull(diagonalValue);
+        return instance(size, size, indexes -> indexes.areDiagonal() ? diagonalValue : nonDiagonalValue);
     }
 
     /**
@@ -141,8 +141,8 @@ public final class MatrixMap<T> {
      */
     public static <S> MatrixMap<S> from(S[][] matrix) {
         Objects.requireNonNull(matrix);
-        int columns = InvalidLengthException.requireNonEmpty(InvalidLengthException.Cause.COLUMN, matrix.length);
-        int rows = InvalidLengthException.requireNonEmpty(InvalidLengthException.Cause.ROW, matrix[0].length);
+        int rows = InvalidLengthException.requireNonEmpty(InvalidLengthException.Cause.ROW, matrix.length);
+        int columns = InvalidLengthException.requireNonEmpty(InvalidLengthException.Cause.COLUMN, matrix[0].length);
         return instance(rows, columns, indexes -> indexes.value(matrix));
     }
 
@@ -151,13 +151,17 @@ public final class MatrixMap<T> {
      * @return the indexes with row and column as number of rows and number of columns of the matrix respectively
      */
     public Indexes size() {
-        Iterator<Indexes> iterator = Barricade.correctKeySet(matrix).iterator();
-        Indexes size = iterator.next();
-        while(iterator.hasNext()) {
-            Indexes currentIndex = iterator.next();
-            size = (size.compareTo(currentIndex) < 0) ? iterator.next() : currentIndex;
+        Set<Indexes> keySet = Barricade.correctKeySet(matrix);
+        if (keySet.isEmpty()) {
+            return new Indexes(0, 0);
         }
-        return new Indexes(size.row() + 1, size.column() + 1);
+        
+        int maxRow = 0, maxCol = 0;
+        for (Indexes idx : keySet) {
+            maxRow = Math.max(maxRow, idx.row());
+            maxCol = Math.max(maxCol, idx.column());
+        }
+        return new Indexes(maxRow + 1, maxCol + 1);
     }
 
     /**
@@ -201,10 +205,13 @@ public final class MatrixMap<T> {
         int rowsNumber = InvalidLengthException.requireNonEmpty(InvalidLengthException.Cause.ROW, rows);
         int columnsNumber = InvalidLengthException.requireNonEmpty(InvalidLengthException.Cause.COLUMN, columns);
         RoamingMap<Indexes, S> matrix = new RoamingMap<>();
-        Indexes.stream(rowsNumber - 2, columnsNumber - 2).forEach(indexes -> {
-                S value = valueMapper.apply(indexes);
-                Barricade.putWithStateVar(matrix, indexes, value);
-            });
+        for (int i = 0; i < rowsNumber; i++) {
+            for (int j = 0; j < columnsNumber; j++) {
+                Indexes idx = new Indexes(i, j);
+                S value = valueMapper.apply(idx);
+                Barricade.putWithStateVar(matrix, idx, value);
+            }
+        }
         return matrix;
     }
 }

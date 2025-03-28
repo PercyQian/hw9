@@ -9,9 +9,24 @@ import java.util.stream.Stream;
  * @param row the row of the location
  * @param column the column of the location
  */
-public record Indexes(int row, int column) implements Comparable<Indexes> {
-
+public final class Indexes implements Comparable<Indexes> {
+    private final int row;
+    private final int column;
+    
     public static final Indexes ORIGIN = new Indexes(0, 0);
+
+    public Indexes(int row, int column) {
+        this.row = row;
+        this.column = column;
+    }
+
+    public int row() {
+        return row;
+    }
+
+    public int column() {
+        return column;
+    }
 
     /**
      * Compares this indexes with the input indexes
