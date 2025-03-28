@@ -1,0 +1,8 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+hw9,default,Barricade,218,0,16,0,53,0,17,0,9,0
+hw9,default,RoamingMap,44,0,0,0,12,0,7,0,7,0
+hw9,default,MatrixMap,188,0,6,0,38,0,18,0,15,0
+hw9,default,MatrixMap.InvalidLengthException,28,0,2,0,9,0,5,0,4,0
+hw9,default,Indexes,113,0,8,0,17,0,14,0,10,0
+hw9,default,MatrixMap.InvalidLengthException.Cause,15,0,0,0,3,0,1,0,1,0
+hw9,default,Barricade.StateRecoveryOptional,15,0,0,0,1,0,3,0,3,0

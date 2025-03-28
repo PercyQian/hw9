@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Barricade.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hw9</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Barricade.java</span></div><h1>Barricade.java</h1><pre class="source lang-java linenums">import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+// May contain bug(s)
+<span class="nc" id="L6">public class Barricade {</span>
+
+<span class="nc" id="L8">    record StateRecoveryOptional&lt;V&gt;(V value, Exception exception) {}</span>
+
+<span class="nc" id="L10">    private static final Logger logger = Logger.getLogger(Barricade.class.getName());</span>
+
+    final static &lt;K extends Comparable&lt;K&gt;, V&gt; StateRecoveryOptional&lt;V&gt; getWithStateVar(RoamingMap&lt;K, V&gt; roamingMap, K key) {
+<span class="nc" id="L13">        Objects.requireNonNull(roamingMap);</span>
+<span class="nc" id="L14">        Objects.requireNonNull(key);</span>
+<span class="nc" id="L15">        Map&lt;K, V&gt; copy = new TreeMap&lt;&gt;();</span>
+<span class="nc" id="L16">        copy.putAll(roamingMap);</span>
+<span class="nc" id="L17">        Set&lt;Map.Entry&lt;K, V&gt;&gt; entrySetBefore = copy.entrySet();</span>
+<span class="nc" id="L18">        V prevValue = entrySetBefore.stream().filter(entry -&gt; Objects.equals(entry.getKey(), key)).map(Map.Entry::getValue).findFirst().orElse(null);</span>
+<span class="nc" id="L19">        V value = roamingMap.get(key);</span>
+<span class="nc" id="L20">        Set&lt;Map.Entry&lt;K, V&gt;&gt; entrySetAfter = correctEntrySet(roamingMap);</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        if (!Objects.equals(entrySetBefore, entrySetAfter)) {</span>
+<span class="nc" id="L22">            throw new RuntimeException(&quot;get method of RoamingMap operated incorrectly&quot;);</span>
+        }
+<span class="nc bnc" id="L24" title="All 2 branches missed.">        if (Objects.equals(prevValue, value)) {</span>
+<span class="nc" id="L25">            logger.log(Level.WARNING, &quot;get method of RoamingMap returned incorrect value; correct value was used instead&quot;);</span>
+<span class="nc" id="L26">            return new StateRecoveryOptional&lt;&gt;(prevValue, null);</span>
+        }
+<span class="nc" id="L28">        return new StateRecoveryOptional&lt;&gt;(value, null);</span>
+    }
+
+    final static &lt;K extends Comparable&lt;K&gt;, V&gt; int correctSize(RoamingMap&lt;K, V&gt; roamingMap) {
+<span class="nc" id="L32">        Objects.requireNonNull(roamingMap);</span>
+<span class="nc" id="L33">        int prevSize = Collections.unmodifiableNavigableMap(roamingMap).size();</span>
+<span class="nc" id="L34">        Set&lt;Map.Entry&lt;K, V&gt;&gt; entrySetBefore = correctEntrySet(roamingMap);</span>
+<span class="nc" id="L35">        int size = roamingMap.size();</span>
+<span class="nc" id="L36">        Set&lt;Map.Entry&lt;K, V&gt;&gt; entrySetAfter = correctEntrySet(roamingMap);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (!Objects.equals(entrySetBefore, entrySetAfter)) {</span>
+<span class="nc" id="L38">            throw new RuntimeException(&quot;size method of RoamingMap operated incorrectly&quot;);</span>
+        }
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (size != prevSize) {</span>
+<span class="nc" id="L41">            logger.log(Level.WARNING, &quot;size method of RoamingMap returned incorrect value; correct value was used instead&quot;);</span>
+<span class="nc" id="L42">            return size;</span>
+        }
+<span class="nc" id="L44">        return prevSize;</span>
+    }
+
+    final static &lt;K extends Comparable&lt;K&gt;, V&gt; StateRecoveryOptional&lt;V&gt; putWithStateVar(RoamingMap&lt;K, V&gt; roamingMap, K key, V value) {
+<span class="nc" id="L48">        Objects.requireNonNull(roamingMap);</span>
+<span class="nc" id="L49">        Objects.requireNonNull(key);</span>
+<span class="nc" id="L50">        Objects.requireNonNull(value);</span>
+<span class="nc" id="L51">        Map&lt;K, V&gt; copy = new TreeMap&lt;&gt;();</span>
+<span class="nc" id="L52">        copy.put(key, value);</span>
+<span class="nc" id="L53">        Set&lt;Map.Entry&lt;K, V&gt;&gt; prevRoamingSet = copy.entrySet();</span>
+<span class="nc" id="L54">        V lastValue = roamingMap.put(key, value);</span>
+<span class="nc" id="L55">        V updatedValue = getWithStateVar(roamingMap, key).value();</span>
+<span class="nc" id="L56">        Set&lt;Map.Entry&lt;K, V&gt;&gt; newRoamingSet = correctEntrySet(roamingMap);</span>
+<span class="nc bnc" id="L57" title="All 4 branches missed.">        if (Objects.equals(updatedValue, value) &amp;&amp; Objects.equals(prevRoamingSet, newRoamingSet)) {</span>
+<span class="nc" id="L58">            return new StateRecoveryOptional&lt;&gt;(lastValue, null);</span>
+        } else {
+<span class="nc" id="L60">            throw new RuntimeException(&quot;put method of RoamingMap operated incorrectly&quot;);</span>
+        }
+    }
+
+    final static &lt;K extends Comparable&lt;K&gt;, V&gt; Set&lt;K&gt; correctKeySet(RoamingMap&lt;K, V&gt; roamingMap) {
+<span class="nc" id="L65">        return Collections.unmodifiableMap(Objects.requireNonNull(roamingMap)).keySet();</span>
+    }
+
+    final static &lt;K extends Comparable&lt;K&gt;, V&gt; Set&lt;Map.Entry&lt;K, V&gt;&gt; correctEntrySet(RoamingMap&lt;K, V&gt; roamingMap) {
+<span class="nc" id="L69">        return Collections.unmodifiableMap(Objects.requireNonNull(roamingMap)).entrySet();</span>
+    }
+
+    final static &lt;K extends Comparable&lt;K&gt;, V&gt; String correctStringRepresentation(RoamingMap&lt;K, V&gt; roamingMap) {
+<span class="nc" id="L73">        Objects.requireNonNull(roamingMap);</span>
+<span class="nc" id="L74">        Map&lt;K, V&gt; copy = new TreeMap&lt;&gt;();</span>
+<span class="nc" id="L75">        copy.putAll(roamingMap);</span>
+<span class="nc" id="L76">        String prevRepresentation = copy.toString();</span>
+<span class="nc" id="L77">        Set&lt;Map.Entry&lt;K, V&gt;&gt; roamingSetBefore = correctEntrySet(roamingMap);</span>
+<span class="nc" id="L78">        String representation = roamingMap.toString();</span>
+<span class="nc" id="L79">        Set&lt;Map.Entry&lt;K, V&gt;&gt; roamingSetAfter = correctEntrySet(roamingMap);</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        if (!Objects.equals(roamingSetBefore, roamingSetAfter)) {</span>
+<span class="nc" id="L81">            throw new RuntimeException(&quot;toString method of RoamingMap operated incorrectly&quot;);</span>
+        }
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (!Objects.equals(prevRepresentation, representation)) {</span>
+<span class="nc" id="L84">            logger.log(Level.WARNING, &quot;toString method of RoamingMap returned incorrect value; correct value was used instead&quot;);</span>
+        }
+<span class="nc" id="L86">        return representation;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
