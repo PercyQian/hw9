@@ -26,9 +26,9 @@ import java.util.logging.Logger;
 <span class="nc" id="L26">            throw new RuntimeException(&quot;get method of RoamingMap operated incorrectly&quot;);</span>
         }
         // 如果返回的值与原本预期不一致，则记录警告并返回正确的值
-<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (!Objects.equals(prevValue, value)) {</span>
-<span class="fc" id="L30">            logger.log(Level.WARNING, &quot;get method of RoamingMap returned incorrect value; correct value was used instead&quot;);</span>
-<span class="fc" id="L31">            return new StateRecoveryOptional&lt;&gt;(prevValue, null);</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if (!Objects.equals(prevValue, value)) {</span>
+<span class="nc" id="L30">            logger.log(Level.WARNING, &quot;get method of RoamingMap returned incorrect value; correct value was used instead&quot;);</span>
+<span class="nc" id="L31">            return new StateRecoveryOptional&lt;&gt;(prevValue, null);</span>
         }
 <span class="fc" id="L33">        return new StateRecoveryOptional&lt;&gt;(value, null);</span>
     }
@@ -53,7 +53,7 @@ import java.util.logging.Logger;
     final static &lt;K extends Comparable&lt;K&gt;, V&gt; StateRecoveryOptional&lt;V&gt; safePut(RoamingMap&lt;K, V&gt; roamingMap, K key, V value) {
 <span class="fc" id="L54">        Objects.requireNonNull(roamingMap);</span>
 <span class="fc" id="L55">        Objects.requireNonNull(key);</span>
-<span class="fc" id="L56">        Objects.requireNonNull(value);</span>
+<span class="fc" id="L56">        Objects.requireNonNull(value, &quot;值不能为null&quot;);</span>
 <span class="fc" id="L57">        Map&lt;K, V&gt; copy = new TreeMap&lt;&gt;();</span>
 <span class="fc" id="L58">        copy.putAll(roamingMap);</span>
 <span class="fc" id="L59">        copy.put(key, value);</span>

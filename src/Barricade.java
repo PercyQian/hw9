@@ -53,7 +53,7 @@ public class Barricade {
     final static <K extends Comparable<K>, V> StateRecoveryOptional<V> safePut(RoamingMap<K, V> roamingMap, K key, V value) {
         Objects.requireNonNull(roamingMap);
         Objects.requireNonNull(key);
-        Objects.requireNonNull(value);
+        Objects.requireNonNull(value, "值不能为null");
         Map<K, V> copy = new TreeMap<>();
         copy.putAll(roamingMap);
         copy.put(key, value);

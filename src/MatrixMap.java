@@ -29,7 +29,7 @@ public final class MatrixMap<T> {
 
         // 修改方法名称为 requirePositive，更符合其行为（要求正数）
         public static int requirePositive(Cause cause, int length) {
-            if(length <= 0) {
+            if(length <= 0) {  // 改回 <= 0，不允许长度为0
                 throw new IllegalArgumentException(new InvalidLengthException(cause, length));
             }
             return length;
@@ -106,11 +106,17 @@ public final class MatrixMap<T> {
         int rowsNumber = InvalidLengthException.requirePositive(InvalidLengthException.Cause.ROW, rows);
         int columnsNumber = InvalidLengthException.requirePositive(InvalidLengthException.Cause.COLUMN, columns);
         RoamingMap<Indexes, S> matrix = new RoamingMap<>();
-        // 使用 for 循环而不是 stream 来确保创建正确大小的矩阵
+        
+        // 不需要特殊处理空矩阵的情况，因为 requirePositive 已经拒绝了 0 值
+        
+        // 正常情况下填充矩阵
         for (int i = 0; i < rowsNumber; i++) {
             for (int j = 0; j < columnsNumber; j++) {
                 Indexes idx = new Indexes(i, j);
                 S value = valueMapper.apply(idx);
+                if (value == null) {
+                    throw new NullPointerException("矩阵不允许包含null值");
+                }
                 Barricade.safePut(matrix, idx, value);
             }
         }

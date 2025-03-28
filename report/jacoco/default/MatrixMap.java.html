@@ -29,7 +29,7 @@ public final class MatrixMap&lt;T&gt; {
 
         // 修改方法名称为 requirePositive，更符合其行为（要求正数）
         public static int requirePositive(Cause cause, int length) {
-<span class="fc bfc" id="L32" title="All 2 branches covered.">            if(length &lt;= 0) {</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">            if(length &lt;= 0) {  // 改回 &lt;= 0，不允许长度为0</span>
 <span class="fc" id="L33">                throw new IllegalArgumentException(new InvalidLengthException(cause, length));</span>
             }
 <span class="fc" id="L35">            return length;</span>
@@ -106,15 +106,21 @@ public final class MatrixMap&lt;T&gt; {
 <span class="fc" id="L106">        int rowsNumber = InvalidLengthException.requirePositive(InvalidLengthException.Cause.ROW, rows);</span>
 <span class="fc" id="L107">        int columnsNumber = InvalidLengthException.requirePositive(InvalidLengthException.Cause.COLUMN, columns);</span>
 <span class="fc" id="L108">        RoamingMap&lt;Indexes, S&gt; matrix = new RoamingMap&lt;&gt;();</span>
-        // 使用 for 循环而不是 stream 来确保创建正确大小的矩阵
-<span class="fc bfc" id="L110" title="All 2 branches covered.">        for (int i = 0; i &lt; rowsNumber; i++) {</span>
-<span class="fc bfc" id="L111" title="All 2 branches covered.">            for (int j = 0; j &lt; columnsNumber; j++) {</span>
-<span class="fc" id="L112">                Indexes idx = new Indexes(i, j);</span>
-<span class="fc" id="L113">                S value = valueMapper.apply(idx);</span>
-<span class="fc" id="L114">                Barricade.safePut(matrix, idx, value);</span>
+        
+        // 不需要特殊处理空矩阵的情况，因为 requirePositive 已经拒绝了 0 值
+        
+        // 正常情况下填充矩阵
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        for (int i = 0; i &lt; rowsNumber; i++) {</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">            for (int j = 0; j &lt; columnsNumber; j++) {</span>
+<span class="fc" id="L115">                Indexes idx = new Indexes(i, j);</span>
+<span class="fc" id="L116">                S value = valueMapper.apply(idx);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">                if (value == null) {</span>
+<span class="fc" id="L118">                    throw new NullPointerException(&quot;矩阵不允许包含null值&quot;);</span>
+                }
+<span class="fc" id="L120">                Barricade.safePut(matrix, idx, value);</span>
             }
         }
-<span class="fc" id="L117">        return matrix;</span>
+<span class="fc" id="L123">        return matrix;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

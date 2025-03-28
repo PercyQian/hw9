@@ -51,8 +51,10 @@ public final class Indexes implements Comparable<Indexes> {
      * @throws NullPointerException if there is null composition in the input matrix
      */
     public <S> S value(S[][] matrix) {
-        Objects.requireNonNull(matrix);
-        return matrix[row()][column()];
+        if (row < 0 || row >= matrix.length || column < 0 || column >= matrix[row].length) {
+            return null;
+        }
+        return matrix[row][column];
     }
 
     /**
@@ -100,5 +102,18 @@ public final class Indexes implements Comparable<Indexes> {
      */
     public static Stream<Indexes> stream(int rows, int columns) {
         return stream(new Indexes(rows, columns));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Indexes indexes = (Indexes) o;
+        return row == indexes.row && column == indexes.column;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, column);
     }
 }

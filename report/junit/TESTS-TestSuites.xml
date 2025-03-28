@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
-  <testsuite errors="0" failures="0" hostname="Mac.lan" id="0" name="BarricadeTest" package="" skipped="0" tests="5" time="0.042" timestamp="2025-03-28T06:53:27">
+  <testsuite errors="0" failures="0" hostname="Mac.lan" id="0" name="BarricadeTest" package="" skipped="0" tests="11" time="0.047" timestamp="2025-03-28T07:25:29">
       <properties>
           <property name="ant.file.hw9" value="/Users/percyqian/Desktop/test/293test/hw9/build.xml" />
 
@@ -34,7 +34,7 @@
 
           <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@17/17.0.14/libexec/openjdk.jdk/Contents/Home/lib" />
 
-          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner BarricadeTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/percyqian/Desktop/test/293test/hw9/report/junit/TEST-BarricadeTest.xml crashfile=/Users/percyqian/Desktop/test/293test/hw9/junitvmwatcher3833290915983532779.properties propsfile=/Users/percyqian/Desktop/test/293test/hw9/junit14473929011557779037.properties" />
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner BarricadeTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/percyqian/Desktop/test/293test/hw9/report/junit/TEST-BarricadeTest.xml crashfile=/Users/percyqian/Desktop/test/293test/hw9/junitvmwatcher2342440877824696489.properties propsfile=/Users/percyqian/Desktop/test/293test/hw9/junit10792830907946346750.properties" />
 
           <property name="output.dir" value="output" />
 
@@ -54,7 +54,7 @@
 
           <property name="java.specification.vendor" value="Oracle Corporation" />
 
-          <property name="_jacoco.agentFile" value="/var/folders/nz/6zx7tt916fn1s3gzbmp2z3sm0000gn/T/jacocoagent1906810747477789559.jar" />
+          <property name="_jacoco.agentFile" value="/var/folders/nz/6zx7tt916fn1s3gzbmp2z3sm0000gn/T/jacocoagent8751528061829519965.jar" />
 
           <property name="java.version.date" value="2025-01-21" />
 
@@ -156,7 +156,11 @@
 
       </properties>
 
-      <testcase classname="BarricadeTest" name="testSafeGetReturnsValueAndNoWarning" time="0.007" />
+      <testcase classname="BarricadeTest" name="testSafeGetReturnsValueAndNoWarning" time="0.01" />
+
+      <testcase classname="BarricadeTest" name="testSafeGetWithWarning" time="0.0" />
+
+      <testcase classname="BarricadeTest" name="testCorrectEntrySetWithEmptyMap" time="0.0" />
 
       <testcase classname="BarricadeTest" name="testCorrectSizeMatchesMapSize" time="0.0" />
 
@@ -164,14 +168,22 @@
 
       <testcase classname="BarricadeTest" name="testCorrectStringRepresentationMatchesToString" time="0.0" />
 
+      <testcase classname="BarricadeTest" name="testCorrectKeySetWithEmptyMap" time="0.0" />
+
+      <testcase classname="BarricadeTest" name="testCorrectSizeWithEmptyMap" time="0.0" />
+
+      <testcase classname="BarricadeTest" name="testSafeGetWithNonExistentKey" time="0.0" />
+
       <testcase classname="BarricadeTest" name="testSafePutAddAndReplace" time="0.0" />
+
+      <testcase classname="BarricadeTest" name="testCorrectSizeWithWarning" time="0.0" />
 
       <system-out><![CDATA[]]></system-out>
 
       <system-err><![CDATA[]]></system-err>
 
   </testsuite>
-  <testsuite errors="0" failures="5" hostname="Mac.lan" id="1" name="MatrixMapTest" package="" skipped="0" tests="8" time="0.064" timestamp="2025-03-28T06:53:28">
+  <testsuite errors="0" failures="0" hostname="Mac.lan" id="1" name="MatrixMapTest" package="" skipped="0" tests="16" time="0.056" timestamp="2025-03-28T07:25:30">
       <properties>
           <property name="ant.file.hw9" value="/Users/percyqian/Desktop/test/293test/hw9/build.xml" />
 
@@ -205,7 +217,7 @@
 
           <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@17/17.0.14/libexec/openjdk.jdk/Contents/Home/lib" />
 
-          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner MatrixMapTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/percyqian/Desktop/test/293test/hw9/report/junit/TEST-MatrixMapTest.xml crashfile=/Users/percyqian/Desktop/test/293test/hw9/junitvmwatcher1089848356110641779.properties propsfile=/Users/percyqian/Desktop/test/293test/hw9/junit2125570810108057156.properties" />
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner MatrixMapTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/percyqian/Desktop/test/293test/hw9/report/junit/TEST-MatrixMapTest.xml crashfile=/Users/percyqian/Desktop/test/293test/hw9/junitvmwatcher7928931381542345107.properties propsfile=/Users/percyqian/Desktop/test/293test/hw9/junit15160904713169097695.properties" />
 
           <property name="output.dir" value="output" />
 
@@ -225,7 +237,7 @@
 
           <property name="java.specification.vendor" value="Oracle Corporation" />
 
-          <property name="_jacoco.agentFile" value="/var/folders/nz/6zx7tt916fn1s3gzbmp2z3sm0000gn/T/jacocoagent1906810747477789559.jar" />
+          <property name="_jacoco.agentFile" value="/var/folders/nz/6zx7tt916fn1s3gzbmp2z3sm0000gn/T/jacocoagent8751528061829519965.jar" />
 
           <property name="java.version.date" value="2025-01-21" />
 
@@ -327,195 +339,41 @@
 
       </properties>
 
-      <testcase classname="MatrixMapTest" name="testMatrixMapInstanceWithIndexes" time="0.021">
-          <failure message="Matrix should have correct value at (0,0) expected:&lt;(0,0)&gt; but was:&lt;null&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Matrix should have correct value at (0,0) expected:&lt;(0,0)&gt; but was:&lt;null&gt;
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.junit.Assert.failNotEquals(Assert.java:835)
-	at org.junit.Assert.assertEquals(Assert.java:120)
-	at MatrixMapTest.testMatrixMapInstanceWithIndexes(MatrixMapTest.java:39)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:50)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:535)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1197)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
-</failure>
+      <testcase classname="MatrixMapTest" name="testMatrixMapInstanceWithIndexes" time="0.011" />
 
-      </testcase>
-
-      <testcase classname="MatrixMapTest" name="testIdentityMatrix" time="0.001">
-          <failure message="Diagonal values should be identity expected:&lt;1&gt; but was:&lt;null&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Diagonal values should be identity expected:&lt;1&gt; but was:&lt;null&gt;
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.junit.Assert.failNotEquals(Assert.java:835)
-	at org.junit.Assert.assertEquals(Assert.java:120)
-	at MatrixMapTest.testIdentityMatrix(MatrixMapTest.java:71)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:50)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:535)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1197)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
-</failure>
-
-      </testcase>
+      <testcase classname="MatrixMapTest" name="testIdentityMatrix" time="0.0" />
 
       <testcase classname="MatrixMapTest" name="testInvalidColumnLength" time="0.0" />
 
-      <testcase classname="MatrixMapTest" name="testConstantMatrix" time="0.001">
-          <failure message="All values should be the constant expected:&lt;42&gt; but was:&lt;null&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: All values should be the constant expected:&lt;42&gt; but was:&lt;null&gt;
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.junit.Assert.failNotEquals(Assert.java:835)
-	at org.junit.Assert.assertEquals(Assert.java:120)
-	at MatrixMapTest.testConstantMatrix(MatrixMapTest.java:56)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:50)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:535)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1197)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
-</failure>
+      <testcase classname="MatrixMapTest" name="testMatrixSizeWithNoEntries" time="0.0" />
 
-      </testcase>
+      <testcase classname="MatrixMapTest" name="testConstantMatrix" time="0.001" />
 
-      <testcase classname="MatrixMapTest" name="testToString" time="0.0" />
+      <testcase classname="MatrixMapTest" name="testValueWithNullIndexes" time="0.0" />
+
+      <testcase classname="MatrixMapTest" name="testToString" time="0.001" />
 
       <testcase classname="MatrixMapTest" name="testInvalidRowLength" time="0.0" />
 
-      <testcase classname="MatrixMapTest" name="testFromArray" time="0.001">
-          <failure message="Matrix should have correct value from array expected:&lt;1&gt; but was:&lt;null&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Matrix should have correct value from array expected:&lt;1&gt; but was:&lt;null&gt;
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.junit.Assert.failNotEquals(Assert.java:835)
-	at org.junit.Assert.assertEquals(Assert.java:120)
-	at MatrixMapTest.testFromArray(MatrixMapTest.java:96)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:50)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:535)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1197)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
-</failure>
+      <testcase classname="MatrixMapTest" name="testNullValueRejection" time="0.0" />
 
-      </testcase>
+      <testcase classname="MatrixMapTest" name="testEdgeCaseMatrix" time="0.001" />
 
-      <testcase classname="MatrixMapTest" name="testMatrixMapInstance" time="0.001">
-          <failure message="Matrix should have correct value at (0,0) expected:&lt;0&gt; but was:&lt;null&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Matrix should have correct value at (0,0) expected:&lt;0&gt; but was:&lt;null&gt;
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.junit.Assert.failNotEquals(Assert.java:835)
-	at org.junit.Assert.assertEquals(Assert.java:120)
-	at MatrixMapTest.testMatrixMapInstance(MatrixMapTest.java:21)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:50)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:535)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1197)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
-</failure>
+      <testcase classname="MatrixMapTest" name="testNonRectangularArraySize" time="0.0" />
 
-      </testcase>
+      <testcase classname="MatrixMapTest" name="testValueWithIndexes" time="0.0" />
+
+      <testcase classname="MatrixMapTest" name="testFromArray" time="0.001" />
+
+      <testcase classname="MatrixMapTest" name="testNegativeRowsMatrix" time="0.0" />
+
+      <testcase classname="MatrixMapTest" name="testMatrixMapInstance" time="0.0" />
+
+      <testcase classname="MatrixMapTest" name="testNonRectangularArrayCreation" time="0.001" />
 
       <system-out><![CDATA[]]></system-out>
 
-      <system-err><![CDATA[Mar 28, 2025 2:53:28 AM Barricade safeGet
-WARNING: get method of RoamingMap returned incorrect value; correct value was used instead
-Mar 28, 2025 2:53:28 AM Barricade safeGet
-WARNING: get method of RoamingMap returned incorrect value; correct value was used instead
-Mar 28, 2025 2:53:28 AM Barricade safeGet
-WARNING: get method of RoamingMap returned incorrect value; correct value was used instead
-Mar 28, 2025 2:53:28 AM Barricade safeGet
-WARNING: get method of RoamingMap returned incorrect value; correct value was used instead
-Mar 28, 2025 2:53:28 AM Barricade safeGet
-WARNING: get method of RoamingMap returned incorrect value; correct value was used instead
-]]></system-err>
+      <system-err><![CDATA[]]></system-err>
 
   </testsuite>
 </testsuites>

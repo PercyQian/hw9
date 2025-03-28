@@ -51,8 +51,10 @@ public final class Indexes implements Comparable&lt;Indexes&gt; {
      * @throws NullPointerException if there is null composition in the input matrix
      */
     public &lt;S&gt; S value(S[][] matrix) {
-<span class="fc" id="L54">        Objects.requireNonNull(matrix);</span>
-<span class="fc" id="L55">        return matrix[row()][column()];</span>
+<span class="pc bpc" id="L54" title="4 of 8 branches missed.">        if (row &lt; 0 || row &gt;= matrix.length || column &lt; 0 || column &gt;= matrix[row].length) {</span>
+<span class="nc" id="L55">            return null;</span>
+        }
+<span class="fc" id="L57">        return matrix[row][column];</span>
     }
 
     /**
@@ -60,7 +62,7 @@ public final class Indexes implements Comparable&lt;Indexes&gt; {
      * @return true if this indexes is in diagonal of the matrix, false otherwise
      */
     public boolean areDiagonal() {
-<span class="fc bfc" id="L63" title="All 2 branches covered.">        return row() == column();</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        return row() == column();</span>
     }
 
     /**
@@ -71,15 +73,15 @@ public final class Indexes implements Comparable&lt;Indexes&gt; {
      * @throws NullPointerException if from or to is null
      */
     public static Stream&lt;Indexes&gt; stream(Indexes from, Indexes to) {
-<span class="nc" id="L74">        Objects.requireNonNull(from);</span>
-<span class="nc" id="L75">        Objects.requireNonNull(to);</span>
-<span class="nc" id="L76">        List&lt;Indexes&gt; list = new LinkedList&lt;&gt;();</span>
-<span class="nc bnc" id="L77" title="All 2 branches missed.">        for (int i = from.row(); i &lt;= to.row(); i++) {</span>
-<span class="nc bnc" id="L78" title="All 2 branches missed.">            for (int j = from.column(); j &lt;= to.column(); j++) {</span>
-<span class="nc" id="L79">                list.add(new Indexes(i, j));</span>
+<span class="nc" id="L76">        Objects.requireNonNull(from);</span>
+<span class="nc" id="L77">        Objects.requireNonNull(to);</span>
+<span class="nc" id="L78">        List&lt;Indexes&gt; list = new LinkedList&lt;&gt;();</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        for (int i = from.row(); i &lt;= to.row(); i++) {</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">            for (int j = from.column(); j &lt;= to.column(); j++) {</span>
+<span class="nc" id="L81">                list.add(new Indexes(i, j));</span>
             }
         }
-<span class="nc" id="L82">        return list.stream();</span>
+<span class="nc" id="L84">        return list.stream();</span>
     }
 
     /**
@@ -89,7 +91,7 @@ public final class Indexes implements Comparable&lt;Indexes&gt; {
      * @throws NullPointerException if size is null
      */
     public static Stream&lt;Indexes&gt; stream(Indexes size) {
-<span class="nc" id="L92">        return stream(ORIGIN, Objects.requireNonNull(size));</span>
+<span class="nc" id="L94">        return stream(ORIGIN, Objects.requireNonNull(size));</span>
     }
 
     /**
@@ -99,7 +101,20 @@ public final class Indexes implements Comparable&lt;Indexes&gt; {
      * @return stream of all indexes between starting point (0, 0) and ending point (rows, columns)
      */
     public static Stream&lt;Indexes&gt; stream(int rows, int columns) {
-<span class="nc" id="L102">        return stream(new Indexes(rows, columns));</span>
+<span class="nc" id="L104">        return stream(new Indexes(rows, columns));</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L110" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc" id="L111">        Indexes indexes = (Indexes) o;</span>
+<span class="fc bfc" id="L112" title="All 4 branches covered.">        return row == indexes.row &amp;&amp; column == indexes.column;</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L117">        return Objects.hash(row, column);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
