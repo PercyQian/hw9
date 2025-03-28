@@ -117,6 +117,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
             <structure name="${ant.project.name}">
                 <classfiles>
                     <fileset dir="${build.dir}">
+                        <exclude name="**/*Test*.class" />
                         <exclude name="**/RoamingMap.class"/>
                         <exclude name="**/Indexes.class"/>
                     </fileset>
