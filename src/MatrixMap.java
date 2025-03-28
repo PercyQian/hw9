@@ -1,10 +1,13 @@
 import java.util.*;
 import java.util.function.Function;
 
-// May contain bug(s)
+/**
+ * The MatrixMap class represents a two-dimensional matrix with row and column indexes.
+ * It provides factory methods for creating different types of matrices and safely accessing values.
+ */
 public final class MatrixMap<T> {
 
-    // 内部异常类，修改了方法名称以符合 Java 命名习惯
+    // Internal exception class, method names conform to Java naming conventions
     public static class InvalidLengthException extends Exception {
         public enum Cause {
             ROW,
@@ -27,9 +30,9 @@ public final class MatrixMap<T> {
             return length;
         }
 
-        // 修改方法名称为 requirePositive，更符合其行为（要求正数）
+        // Method named requirePositive to better reflect its behavior (requiring positive values)
         public static int requirePositive(Cause cause, int length) {
-            if(length <= 0) {  // 改回 <= 0，不允许长度为0
+            if(length <= 0) {  // Changed back to <= 0, zero lengths not allowed
                 throw new IllegalArgumentException(new InvalidLengthException(cause, length));
             }
             return length;
@@ -63,7 +66,7 @@ public final class MatrixMap<T> {
     public static <S> MatrixMap<S> identity(int size, S zero, S identity) {
         Objects.requireNonNull(zero);
         Objects.requireNonNull(identity);
-        // 修正了 lambda 表达式：对角线位置应为 identity，其他位置为 zero
+        // Fixed lambda expression: diagonal positions should be identity, others zero
         return instance(size, size, indexes -> (indexes.areDiagonal() ? identity : zero));
     }
 
@@ -107,15 +110,15 @@ public final class MatrixMap<T> {
         int columnsNumber = InvalidLengthException.requirePositive(InvalidLengthException.Cause.COLUMN, columns);
         RoamingMap<Indexes, S> matrix = new RoamingMap<>();
         
-        // 不需要特殊处理空矩阵的情况，因为 requirePositive 已经拒绝了 0 值
+        // No need to special-case empty matrices since requirePositive already rejects 0 values
         
-        // 正常情况下填充矩阵
+        // Fill the matrix normally
         for (int i = 0; i < rowsNumber; i++) {
             for (int j = 0; j < columnsNumber; j++) {
                 Indexes idx = new Indexes(i, j);
                 S value = valueMapper.apply(idx);
                 if (value == null) {
-                    throw new NullPointerException("矩阵不允许包含null值");
+                    throw new NullPointerException("Matrix cannot contain null values");
                 }
                 Barricade.safePut(matrix, idx, value);
             }

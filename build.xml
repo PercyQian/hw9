@@ -21,7 +21,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
 -->
 
 <!-- TODO: change the name to the name of the project given in the assignment (such as "count") -->
-<project name="hw9" xmlns:jacoco="antlib:org.jacoco.ant">
+<project name="Roaming" xmlns:jacoco="antlib:org.jacoco.ant">
     <!--   Directory with source files -->
     <property name="src.dir" value="src"/>
 
@@ -51,7 +51,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
 
     <!--   Class containing the main method: define ONLY IF your project has a main -->
     <!-- TODO: if this project specifies a main class, replace "HelloWorld" with that main class (otherwise, you can ignore this) -->
-    <!--property name="main-class" value="${ant.project.name}.HelloWorld"/-->
+    <property name="main-class" value="MatrixDemo"/>
 
     <!--   Additional jar that may be needed for properly runnign junit -->
     <path id="hamcrest.classpath">
@@ -69,21 +69,19 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
     <!--   ant build : compile the src  -->
     <target name="build">
         <mkdir dir="${build.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true" includeAntRuntime="yes">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true" includeAntRuntime="yes" source="17" target="17" release="17">
             <classpath refid="project.classpath"/>
         </javac>
     </target>
 
-    <!--   ant run : define run target ONLY IF your project has a main -->
-    <!--
+    <!--   ant run : 从标准输入获取数据并输出到标准输出 -->
     <target name="run" depends="build">
-      <mkdir dir="${output.dir}"/>
-      <java fork="true" classname="${main-class}" classpath="${build.dir}" output="${output.file}" error="${error.file}">
-        <assertions><enable/></assertions>
-        <arg line="${args}"/>
-      </java>
+        <java fork="true" classname="${main-class}" classpath="${build.dir}">
+            <assertions><enable/></assertions>
+            <!-- 不再指定输入输出文件，使用标准输入输出 -->
+            <arg line="${args}"/>
+        </java>
     </target>
-    -->
 
     <!--   ant test : run unit tests -->
     <target name="test" depends="build">
@@ -120,6 +118,8 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
                         <exclude name="**/*Test*.class" />
                         <exclude name="**/RoamingMap.class"/>
                         <exclude name="**/Indexes.class"/>
+                        <exclude name="**/BuggyRoamingMap.class"/>
+                        <exclude name="**/MatrixDemo.class"/>
                     </fileset>
                 </classfiles>
                 <sourcefiles encoding="UTF-8">

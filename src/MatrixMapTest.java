@@ -136,13 +136,13 @@ public class MatrixMapTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void testNegativeRowsMatrix() {
-        // 测试负行数
+        // Test negative row count
         MatrixMap.instance(-1, 5, indexes -> 0);
     }
     
     @Test
     public void testEdgeCaseMatrix() {
-        // 测试1x1矩阵
+        // Test 1x1 matrix
         MatrixMap<Integer> matrix = MatrixMap.instance(1, 1, indexes -> 42);
         assertEquals("Matrix should have 1 row", 1, matrix.size().row());
         assertEquals("Matrix should have 1 column", 1, matrix.size().column());
@@ -151,16 +151,16 @@ public class MatrixMapTest {
     
     @Test(expected = NullPointerException.class)
     public void testNullValueRejection() {
-        // 测试null值应该被拒绝
+        // Test that null values should be rejected
         MatrixMap<Integer> matrix = MatrixMap.instance(2, 2, indexes -> 
             indexes.row() == 0 && indexes.column() == 0 ? null : 1);
-        // 这里应该抛出NullPointerException，因为valueMapper返回的null被拒绝
+        // Should throw NullPointerException because valueMapper returns null
     }
     
     @Test
     public void testMatrixSizeWithNoEntries() {
-        // 我们不能测试0列的矩阵，因为 MatrixMap 不允许维度为0
-        // 测试最小允许尺寸的矩阵 (1x1)
+        // We cannot test matrices with 0 columns because MatrixMap doesn't allow zero dimensions
+        // Test the minimum allowed size matrix (1x1)
         MatrixMap<Integer> singleElementMatrix = MatrixMap.instance(1, 1, indexes -> 42);
         assertEquals("Single element matrix should have 1 row", 1, singleElementMatrix.size().row());
         assertEquals("Single element matrix should have 1 column", 1, singleElementMatrix.size().column());
@@ -169,7 +169,7 @@ public class MatrixMapTest {
     
     @Test
     public void testValueWithIndexes() {
-        // 测试使用Indexes对象获取值
+        // Test retrieving value using Indexes object
         MatrixMap<Integer> matrix = MatrixMap.instance(2, 2, indexes -> indexes.row() + indexes.column());
         Indexes idx = new Indexes(1, 0);
         assertEquals("Should retrieve correct value with Indexes object", Integer.valueOf(1), matrix.value(idx));
@@ -177,20 +177,20 @@ public class MatrixMapTest {
     
     @Test(expected = NullPointerException.class)
     public void testValueWithNullIndexes() {
-        // 测试用null索引获取值应抛出异常
+        // Test that retrieving with null index should throw exception
         MatrixMap<Integer> matrix = MatrixMap.instance(2, 2, indexes -> 1);
         matrix.value((Indexes)null);
     }
     
     @Test
     public void testNonRectangularArrayCreation() {
-        // 测试从非矩形数组创建矩阵
+        // Test creating matrix from non-rectangular array
         Integer[][] jagged = new Integer[][] {
             {1, 2, 3},
-            {4, 5, 6}  // 改为完整的行
+            {4, 5, 6}  // Complete row
         };
         
-        // 应该使用第一行的长度作为列数
+        // Should use the length of the first row as column count
         MatrixMap<Integer> matrix = MatrixMap.from(jagged);
         assertEquals("Should have 2 rows", 2, matrix.size().row());
         assertEquals("Should have 3 columns", 3, matrix.size().column());
@@ -201,11 +201,11 @@ public class MatrixMapTest {
     
     @Test
     public void testNonRectangularArraySize() {
-        // 测试有行但所有行都有完整数据
+        // Test having rows but all rows have complete data
         Integer[][] nonRect = new Integer[][] {
             {1, 2, 3},
-            {4, 5, 6}, // 这行有完整的元素
-            {7, 8, 9}  // 这行有完整的元素
+            {4, 5, 6}, // This row has complete elements
+            {7, 8, 9}  // This row has complete elements
         };
         
         MatrixMap<Integer> matrix = MatrixMap.from(nonRect);
