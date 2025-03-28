@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
-  <testsuite errors="0" failures="0" hostname="Mac.lan" id="0" name="BarricadeTest" package="" skipped="0" tests="11" time="0.055" timestamp="2025-03-28T07:39:39">
+  <testsuite errors="0" failures="0" hostname="Mac.lan" id="0" name="BarricadeTest" package="" skipped="0" tests="13" time="0.049" timestamp="2025-03-28T08:15:21">
       <properties>
           <property name="ant.file.hw9" value="/Users/percyqian/Desktop/test/293test/hw9/build.xml" />
 
@@ -34,7 +34,7 @@
 
           <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@17/17.0.14/libexec/openjdk.jdk/Contents/Home/lib" />
 
-          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner BarricadeTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/percyqian/Desktop/test/293test/hw9/report/junit/TEST-BarricadeTest.xml crashfile=/Users/percyqian/Desktop/test/293test/hw9/junitvmwatcher6026914070390657924.properties propsfile=/Users/percyqian/Desktop/test/293test/hw9/junit9341045394892050873.properties" />
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner BarricadeTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/percyqian/Desktop/test/293test/hw9/report/junit/TEST-BarricadeTest.xml crashfile=/Users/percyqian/Desktop/test/293test/hw9/junitvmwatcher1557152403398539751.properties propsfile=/Users/percyqian/Desktop/test/293test/hw9/junit14083897446480924251.properties" />
 
           <property name="output.dir" value="output" />
 
@@ -54,7 +54,7 @@
 
           <property name="java.specification.vendor" value="Oracle Corporation" />
 
-          <property name="_jacoco.agentFile" value="/var/folders/nz/6zx7tt916fn1s3gzbmp2z3sm0000gn/T/jacocoagent3313095307068022939.jar" />
+          <property name="_jacoco.agentFile" value="/var/folders/nz/6zx7tt916fn1s3gzbmp2z3sm0000gn/T/jacocoagent6831363980681546104.jar" />
 
           <property name="java.version.date" value="2025-01-21" />
 
@@ -156,15 +156,19 @@
 
       </properties>
 
-      <testcase classname="BarricadeTest" name="testSafeGetReturnsValueAndNoWarning" time="0.012" />
+      <testcase classname="BarricadeTest" name="testSafeGetReturnsValueAndNoWarning" time="0.007" />
 
-      <testcase classname="BarricadeTest" name="testSafeGetWithWarning" time="0.001" />
+      <testcase classname="BarricadeTest" name="testBarricadeWithSpecialValues" time="0.007" />
+
+      <testcase classname="BarricadeTest" name="testSafeGetWithMutatingEquals" time="0.0" />
+
+      <testcase classname="BarricadeTest" name="testSafeGetWithWarning" time="0.0" />
 
       <testcase classname="BarricadeTest" name="testCorrectEntrySetWithEmptyMap" time="0.0" />
 
-      <testcase classname="BarricadeTest" name="testCorrectSizeMatchesMapSize" time="0.001" />
+      <testcase classname="BarricadeTest" name="testCorrectSizeMatchesMapSize" time="0.0" />
 
-      <testcase classname="BarricadeTest" name="testCorrectKeySetAndEntrySetUnmodifiable" time="0.0" />
+      <testcase classname="BarricadeTest" name="testCorrectKeySetAndEntrySetUnmodifiable" time="0.001" />
 
       <testcase classname="BarricadeTest" name="testCorrectStringRepresentationMatchesToString" time="0.0" />
 
@@ -172,7 +176,7 @@
 
       <testcase classname="BarricadeTest" name="testCorrectSizeWithEmptyMap" time="0.0" />
 
-      <testcase classname="BarricadeTest" name="testSafeGetWithNonExistentKey" time="0.001" />
+      <testcase classname="BarricadeTest" name="testSafeGetWithNonExistentKey" time="0.0" />
 
       <testcase classname="BarricadeTest" name="testSafePutAddAndReplace" time="0.0" />
 
@@ -180,10 +184,14 @@
 
       <system-out><![CDATA[]]></system-out>
 
-      <system-err><![CDATA[]]></system-err>
+      <system-err><![CDATA[Mar 28, 2025 4:15:21 AM BarricadeTest testBarricadeWithSpecialValues
+WARNING: 检测到RoamingMap.toString操作不正确
+Mar 28, 2025 4:15:21 AM BarricadeTest testSafeGetWithMutatingEquals
+WARNING: 检测到键值不稳定
+]]></system-err>
 
   </testsuite>
-  <testsuite errors="0" failures="0" hostname="Mac.lan" id="1" name="MatrixMapTest" package="" skipped="0" tests="16" time="0.061" timestamp="2025-03-28T07:39:40">
+  <testsuite errors="0" failures="0" hostname="Mac.lan" id="1" name="MatrixMapTest" package="" skipped="0" tests="16" time="0.053" timestamp="2025-03-28T08:15:22">
       <properties>
           <property name="ant.file.hw9" value="/Users/percyqian/Desktop/test/293test/hw9/build.xml" />
 
@@ -217,7 +225,7 @@
 
           <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@17/17.0.14/libexec/openjdk.jdk/Contents/Home/lib" />
 
-          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner MatrixMapTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/percyqian/Desktop/test/293test/hw9/report/junit/TEST-MatrixMapTest.xml crashfile=/Users/percyqian/Desktop/test/293test/hw9/junitvmwatcher12179178516968614373.properties propsfile=/Users/percyqian/Desktop/test/293test/hw9/junit7601736817938295028.properties" />
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner MatrixMapTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/percyqian/Desktop/test/293test/hw9/report/junit/TEST-MatrixMapTest.xml crashfile=/Users/percyqian/Desktop/test/293test/hw9/junitvmwatcher1780505985111018058.properties propsfile=/Users/percyqian/Desktop/test/293test/hw9/junit11888969088414504335.properties" />
 
           <property name="output.dir" value="output" />
 
@@ -237,7 +245,7 @@
 
           <property name="java.specification.vendor" value="Oracle Corporation" />
 
-          <property name="_jacoco.agentFile" value="/var/folders/nz/6zx7tt916fn1s3gzbmp2z3sm0000gn/T/jacocoagent3313095307068022939.jar" />
+          <property name="_jacoco.agentFile" value="/var/folders/nz/6zx7tt916fn1s3gzbmp2z3sm0000gn/T/jacocoagent6831363980681546104.jar" />
 
           <property name="java.version.date" value="2025-01-21" />
 
@@ -339,11 +347,11 @@
 
       </properties>
 
-      <testcase classname="MatrixMapTest" name="testMatrixMapInstanceWithIndexes" time="0.017" />
+      <testcase classname="MatrixMapTest" name="testMatrixMapInstanceWithIndexes" time="0.013" />
 
-      <testcase classname="MatrixMapTest" name="testIdentityMatrix" time="0.0" />
+      <testcase classname="MatrixMapTest" name="testIdentityMatrix" time="0.001" />
 
-      <testcase classname="MatrixMapTest" name="testInvalidColumnLength" time="0.001" />
+      <testcase classname="MatrixMapTest" name="testInvalidColumnLength" time="0.0" />
 
       <testcase classname="MatrixMapTest" name="testMatrixSizeWithNoEntries" time="0.0" />
 
@@ -357,15 +365,15 @@
 
       <testcase classname="MatrixMapTest" name="testNullValueRejection" time="0.0" />
 
-      <testcase classname="MatrixMapTest" name="testEdgeCaseMatrix" time="0.0" />
+      <testcase classname="MatrixMapTest" name="testEdgeCaseMatrix" time="0.001" />
 
-      <testcase classname="MatrixMapTest" name="testNonRectangularArraySize" time="0.001" />
+      <testcase classname="MatrixMapTest" name="testNonRectangularArraySize" time="0.0" />
 
       <testcase classname="MatrixMapTest" name="testValueWithIndexes" time="0.0" />
 
-      <testcase classname="MatrixMapTest" name="testFromArray" time="0.0" />
+      <testcase classname="MatrixMapTest" name="testFromArray" time="0.001" />
 
-      <testcase classname="MatrixMapTest" name="testNegativeRowsMatrix" time="0.001" />
+      <testcase classname="MatrixMapTest" name="testNegativeRowsMatrix" time="0.0" />
 
       <testcase classname="MatrixMapTest" name="testMatrixMapInstance" time="0.0" />
 
