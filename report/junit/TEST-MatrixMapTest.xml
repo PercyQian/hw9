@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="2" failures="5" hostname="Mac.lan" name="MatrixMapTest" skipped="0" tests="8" time="0.072" timestamp="2025-03-28T06:24:43">
+<testsuite errors="0" failures="5" hostname="Mac.lan" name="MatrixMapTest" skipped="0" tests="8" time="0.064" timestamp="2025-03-28T06:53:28">
   <properties>
     <property name="ant.file.hw9" value="/Users/percyqian/Desktop/test/293test/hw9/build.xml" />
     <property name="ant.library.dir" value="/opt/homebrew/Cellar/ant/1.10.15_1/libexec/lib" />
@@ -17,7 +17,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD" />
     <property name="user.country" value="US" />
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@17/17.0.14/libexec/openjdk.jdk/Contents/Home/lib" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner MatrixMapTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/percyqian/Desktop/test/293test/hw9/report/junit/TEST-MatrixMapTest.xml crashfile=/Users/percyqian/Desktop/test/293test/hw9/junitvmwatcher13478915615086952018.properties propsfile=/Users/percyqian/Desktop/test/293test/hw9/junit11280764594516852746.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner MatrixMapTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/percyqian/Desktop/test/293test/hw9/report/junit/TEST-MatrixMapTest.xml crashfile=/Users/percyqian/Desktop/test/293test/hw9/junitvmwatcher1089848356110641779.properties propsfile=/Users/percyqian/Desktop/test/293test/hw9/junit2125570810108057156.properties" />
     <property name="output.dir" value="output" />
     <property name="http.nonProxyHosts" value="127.0.0.1|192.168.0.0/16|*.192.168.0.0/16|10.0.0.0/8|*.10.0.0.0/8|172.16.0.0/12|*.172.16.0.0/12|100.64.0.0/10|*.100.64.0.0/10|17.0.0.0/8|*.17.0.0.0/8|localhost|*.localhost|local|*.local|169.254.0.0/16|*.169.254.0.0/16|224.0.0.0/4|*.224.0.0.0/4|240.0.0.0/4|*.240.0.0.0/4" />
     <property name="jdk.debug" value="release" />
@@ -27,7 +27,7 @@
     <property name="user.language" value="en" />
     <property name="sun.stderr.encoding" value="UTF-8" />
     <property name="java.specification.vendor" value="Oracle Corporation" />
-    <property name="_jacoco.agentFile" value="/var/folders/nz/6zx7tt916fn1s3gzbmp2z3sm0000gn/T/jacocoagent15210213737111909139.jar" />
+    <property name="_jacoco.agentFile" value="/var/folders/nz/6zx7tt916fn1s3gzbmp2z3sm0000gn/T/jacocoagent1906810747477789559.jar" />
     <property name="java.version.date" value="2025-01-21" />
     <property name="java.home" value="/opt/homebrew/Cellar/openjdk@17/17.0.14/libexec/openjdk.jdk/Contents/Home" />
     <property name="basedir" value="/Users/percyqian/Desktop/test/293test/hw9" />
@@ -50,7 +50,7 @@
     <property name="os.version" value="15.3.2" />
     <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
     <property name="file.encoding" value="UTF-8" />
-    <property name="ant.project.invoked-targets" value="test" />
+    <property name="ant.project.invoked-targets" value="report" />
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM" />
     <property name="java.vendor.version" value="Homebrew" />
     <property name="report.dir" value="report" />
@@ -78,12 +78,12 @@
     <property name="java.class.version" value="61.0" />
     <property name="src.dir" value="src" />
   </properties>
-  <testcase classname="MatrixMapTest" name="testMatrixMapInstanceWithIndexes" time="0.028">
+  <testcase classname="MatrixMapTest" name="testMatrixMapInstanceWithIndexes" time="0.021">
     <failure message="Matrix should have correct value at (0,0) expected:&lt;(0,0)&gt; but was:&lt;null&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Matrix should have correct value at (0,0) expected:&lt;(0,0)&gt; but was:&lt;null&gt;
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
 	at org.junit.Assert.assertEquals(Assert.java:120)
-	at MatrixMapTest.testMatrixMapInstanceWithIndexes(MatrixMapTest.java:37)
+	at MatrixMapTest.testMatrixMapInstanceWithIndexes(MatrixMapTest.java:39)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -110,12 +110,12 @@
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
 </failure>
   </testcase>
-  <testcase classname="MatrixMapTest" name="testIdentityMatrix" time="0.002">
+  <testcase classname="MatrixMapTest" name="testIdentityMatrix" time="0.001">
     <failure message="Diagonal values should be identity expected:&lt;1&gt; but was:&lt;null&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Diagonal values should be identity expected:&lt;1&gt; but was:&lt;null&gt;
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
 	at org.junit.Assert.assertEquals(Assert.java:120)
-	at MatrixMapTest.testIdentityMatrix(MatrixMapTest.java:69)
+	at MatrixMapTest.testIdentityMatrix(MatrixMapTest.java:71)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -142,48 +142,13 @@
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
 </failure>
   </testcase>
-  <testcase classname="MatrixMapTest" name="testInvalidColumnLength" time="0.0">
-    <error message="Unexpected exception, expected&lt;MatrixMap$InvalidLengthException&gt; but was&lt;java.lang.IllegalArgumentException&gt;" type="java.lang.Exception">java.lang.Exception: Unexpected exception, expected&lt;MatrixMap$InvalidLengthException&gt; but was&lt;java.lang.IllegalArgumentException&gt;
-	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:30)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:50)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:535)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1197)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
-Caused by: java.lang.IllegalArgumentException: MatrixMap$InvalidLengthException
-	at MatrixMap$InvalidLengthException.requireNonEmpty(MatrixMap.java:63)
-	at MatrixMapTest.testInvalidColumnLength(MatrixMapTest.java:110)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:19)
-	... 16 more
-Caused by: MatrixMap$InvalidLengthException
-	... 27 more
-</error>
-  </testcase>
+  <testcase classname="MatrixMapTest" name="testInvalidColumnLength" time="0.0" />
   <testcase classname="MatrixMapTest" name="testConstantMatrix" time="0.001">
     <failure message="All values should be the constant expected:&lt;42&gt; but was:&lt;null&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: All values should be the constant expected:&lt;42&gt; but was:&lt;null&gt;
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
 	at org.junit.Assert.assertEquals(Assert.java:120)
-	at MatrixMapTest.testConstantMatrix(MatrixMapTest.java:54)
+	at MatrixMapTest.testConstantMatrix(MatrixMapTest.java:56)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -210,49 +175,14 @@ Caused by: MatrixMap$InvalidLengthException
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
 </failure>
   </testcase>
-  <testcase classname="MatrixMapTest" name="testToString" time="0.001" />
-  <testcase classname="MatrixMapTest" name="testInvalidRowLength" time="0.0">
-    <error message="Unexpected exception, expected&lt;MatrixMap$InvalidLengthException&gt; but was&lt;java.lang.IllegalArgumentException&gt;" type="java.lang.Exception">java.lang.Exception: Unexpected exception, expected&lt;MatrixMap$InvalidLengthException&gt; but was&lt;java.lang.IllegalArgumentException&gt;
-	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:30)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:50)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:535)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1197)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
-Caused by: java.lang.IllegalArgumentException: MatrixMap$InvalidLengthException
-	at MatrixMap$InvalidLengthException.requireNonEmpty(MatrixMap.java:63)
-	at MatrixMapTest.testInvalidRowLength(MatrixMapTest.java:103)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:19)
-	... 16 more
-Caused by: MatrixMap$InvalidLengthException
-	... 27 more
-</error>
-  </testcase>
+  <testcase classname="MatrixMapTest" name="testToString" time="0.0" />
+  <testcase classname="MatrixMapTest" name="testInvalidRowLength" time="0.0" />
   <testcase classname="MatrixMapTest" name="testFromArray" time="0.001">
     <failure message="Matrix should have correct value from array expected:&lt;1&gt; but was:&lt;null&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Matrix should have correct value from array expected:&lt;1&gt; but was:&lt;null&gt;
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
 	at org.junit.Assert.assertEquals(Assert.java:120)
-	at MatrixMapTest.testFromArray(MatrixMapTest.java:94)
+	at MatrixMapTest.testFromArray(MatrixMapTest.java:96)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -284,7 +214,7 @@ Caused by: MatrixMap$InvalidLengthException
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
 	at org.junit.Assert.assertEquals(Assert.java:120)
-	at MatrixMapTest.testMatrixMapInstance(MatrixMapTest.java:19)
+	at MatrixMapTest.testMatrixMapInstance(MatrixMapTest.java:21)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -312,15 +242,15 @@ Caused by: MatrixMap$InvalidLengthException
 </failure>
   </testcase>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[Mar 28, 2025 2:24:43 AM Barricade getWithStateVar
+  <system-err><![CDATA[Mar 28, 2025 2:53:28 AM Barricade safeGet
 WARNING: get method of RoamingMap returned incorrect value; correct value was used instead
-Mar 28, 2025 2:24:43 AM Barricade getWithStateVar
+Mar 28, 2025 2:53:28 AM Barricade safeGet
 WARNING: get method of RoamingMap returned incorrect value; correct value was used instead
-Mar 28, 2025 2:24:43 AM Barricade getWithStateVar
+Mar 28, 2025 2:53:28 AM Barricade safeGet
 WARNING: get method of RoamingMap returned incorrect value; correct value was used instead
-Mar 28, 2025 2:24:43 AM Barricade getWithStateVar
+Mar 28, 2025 2:53:28 AM Barricade safeGet
 WARNING: get method of RoamingMap returned incorrect value; correct value was used instead
-Mar 28, 2025 2:24:43 AM Barricade getWithStateVar
+Mar 28, 2025 2:53:28 AM Barricade safeGet
 WARNING: get method of RoamingMap returned incorrect value; correct value was used instead
 ]]></system-err>
 </testsuite>

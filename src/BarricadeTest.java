@@ -1,104 +1,95 @@
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.util.logging.Logger;
-import java.util.Map;
 import java.util.Set;
+import java.util.Map;
+import java.util.logging.Logger;
 
 // Test class for Barricade
 public class BarricadeTest {
 
     private final Logger logger = Logger.getLogger(Barricade.class.getName());
     private final LoggerTestingHandler handler = new LoggerTestingHandler();
-    private RoamingMap<String, Integer> testMap;
 
     @Before
     public void setup() {
         logger.addHandler(handler);
-        testMap = new RoamingMap<>();
     }
 
     @Test
-    public void testGetWithStateVar() {
-        // Test with empty map
-        Barricade.StateRecoveryOptional<Integer> emptyResult = Barricade.getWithStateVar(testMap, "key1");
-        assertNull("Value should be null for non-existent key", emptyResult.value());
-        
-        // Put a value and retrieve it
-        testMap.put("key1", 100);
-        Barricade.StateRecoveryOptional<Integer> result = Barricade.getWithStateVar(testMap, "key1");
-        assertEquals("Should retrieve correct value", Integer.valueOf(100), result.value());
+    public void testSafeGetReturnsValueAndNoWarning() {
+        RoamingMap<Indexes, String> map = new RoamingMap<>();
+        Indexes key = new Indexes(1, 1);
+        map.put(key, "value1");
+        handler.clearLogRecords();
+        Barricade.StateRecoveryOptional<String> result = Barricade.safeGet(map, key);
+        assertEquals("value1", result.value());
+        assertNull(result.exception());
+        assertFalse(handler.getLastLog().isPresent());
     }
-    
+
     @Test
-    public void testCorrectSize() {
-        assertEquals("Empty map should have size 0", 0, Barricade.correctSize(testMap));
-        
-        testMap.put("key1", 100);
-        assertEquals("Map with one entry should have size 1", 1, Barricade.correctSize(testMap));
-        
-        testMap.put("key2", 200);
-        assertEquals("Map with two entries should have size 2", 2, Barricade.correctSize(testMap));
+    public void testSafePutAddAndReplace() {
+        RoamingMap<Indexes, Integer> map = new RoamingMap<>();
+        Indexes k1 = new Indexes(0, 0);
+        Indexes k2 = new Indexes(0, 1);
+        // 添加新键
+        Barricade.StateRecoveryOptional<Integer> res1 = Barricade.safePut(map, k1, 10);
+        assertNull(res1.value());
+        // 替换已有键
+        Barricade.StateRecoveryOptional<Integer> res2 = Barricade.safePut(map, k1, 20);
+        assertEquals(Integer.valueOf(10), res2.value());
+        // 添加另一个新键
+        Barricade.StateRecoveryOptional<Integer> res3 = Barricade.safePut(map, k2, 30);
+        assertNull(res3.value());
+        // 验证 map 中的值
+        assertEquals(Integer.valueOf(20), map.get(k1));
+        assertEquals(Integer.valueOf(30), map.get(k2));
+        assertFalse(handler.getLastLog().isPresent());
     }
-    
+
     @Test
-    public void testPutWithStateVar() {
-        // Initial put should return null for previous value
-        Barricade.StateRecoveryOptional<Integer> result1 = Barricade.putWithStateVar(testMap, "key1", 100);
-        assertNull("Previous value should be null", result1.value());
-        
-        // Verify value was stored correctly
-        assertEquals("Value should be stored correctly", Integer.valueOf(100), testMap.get("key1"));
-        
-        // Update existing value
-        Barricade.StateRecoveryOptional<Integer> result2 = Barricade.putWithStateVar(testMap, "key1", 200);
-        assertEquals("Previous value should be returned", Integer.valueOf(100), result2.value());
-        
-        // Verify value was updated correctly
-        assertEquals("Value should be updated correctly", Integer.valueOf(200), testMap.get("key1"));
+    public void testCorrectSizeMatchesMapSize() {
+        RoamingMap<String, Integer> map = new RoamingMap<>();
+        assertEquals(0, Barricade.correctSize(map));
+        map.put("A", 1);
+        map.put("B", 2);
+        assertEquals(2, Barricade.correctSize(map));
+        assertFalse(handler.getLastLog().isPresent());
     }
-    
+
     @Test
-    public void testCorrectKeySet() {
-        testMap.put("key1", 100);
-        testMap.put("key2", 200);
-        
-        Set<String> keySet = Barricade.correctKeySet(testMap);
-        assertEquals("KeySet should have correct size", 2, keySet.size());
-        assertTrue("KeySet should contain first key", keySet.contains("key1"));
-        assertTrue("KeySet should contain second key", keySet.contains("key2"));
-    }
-    
-    @Test
-    public void testCorrectEntrySet() {
-        testMap.put("key1", 100);
-        testMap.put("key2", 200);
-        
-        Set<Map.Entry<String, Integer>> entrySet = Barricade.correctEntrySet(testMap);
-        assertEquals("EntrySet should have correct size", 2, entrySet.size());
-        
-        boolean foundFirstEntry = false;
-        boolean foundSecondEntry = false;
-        
-        for (Map.Entry<String, Integer> entry : entrySet) {
-            if ("key1".equals(entry.getKey()) && Integer.valueOf(100).equals(entry.getValue())) {
-                foundFirstEntry = true;
-            }
-            if ("key2".equals(entry.getKey()) && Integer.valueOf(200).equals(entry.getValue())) {
-                foundSecondEntry = true;
-            }
+    public void testCorrectKeySetAndEntrySetUnmodifiable() {
+        RoamingMap<Integer, String> map = new RoamingMap<>();
+        map.put(1, "one");
+        map.put(2, "two");
+        Set<Integer> keys = Barricade.correctKeySet(map);
+        Set<Map.Entry<Integer, String>> entries = Barricade.correctEntrySet(map);
+        assertEquals(map.keySet(), keys);
+        assertEquals(map.entrySet(), entries);
+        try {
+            keys.add(3);
+            fail("correctKeySet should return an unmodifiable set");
+        } catch (UnsupportedOperationException e) {
+            // expected
         }
-        
-        assertTrue("Should find first entry", foundFirstEntry);
-        assertTrue("Should find second entry", foundSecondEntry);
+        try {
+            entries.clear();
+            fail("correctEntrySet should return an unmodifiable set");
+        } catch (UnsupportedOperationException e) {
+            // expected
+        }
     }
-    
+
     @Test
-    public void testCorrectStringRepresentation() {
-        testMap.put("key1", 100);
-        
-        String representation = Barricade.correctStringRepresentation(testMap);
-        assertTrue("String representation should contain key", representation.contains("key1"));
-        assertTrue("String representation should contain value", representation.contains("100"));
+    public void testCorrectStringRepresentationMatchesToString() {
+        RoamingMap<Integer, String> map = new RoamingMap<>();
+        map.put(1, "one");
+        map.put(2, "two");
+        handler.clearLogRecords();
+        String expected = map.toString();
+        String result = Barricade.correctStringRepresentation(map);
+        assertEquals(expected, result);
+        assertFalse(handler.getLastLog().isPresent());
     }
 }

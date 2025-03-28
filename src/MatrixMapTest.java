@@ -2,6 +2,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.function.Function;
 
+
+
 // Test class for MatrixMap
 public class MatrixMapTest {
     
@@ -97,17 +99,26 @@ public class MatrixMapTest {
         assertEquals("Matrix should have correct value from array", Integer.valueOf(6), matrix.value(1, 2));
     }
     
-    @Test(expected = MatrixMap.InvalidLengthException.class)
-    public void testInvalidRowLength() throws MatrixMap.InvalidLengthException {
-        // This should throw an InvalidLengthException
-        MatrixMap.InvalidLengthException.requireNonEmpty(
-            MatrixMap.InvalidLengthException.Cause.ROW, 0);
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidRowLength() {
+        try {
+            MatrixMap.InvalidLengthException.requirePositive(MatrixMap.InvalidLengthException.Cause.ROW, 0);
+            fail("Should throw exception for zero length");
+        } catch (IllegalArgumentException e) {
+            if (e.getCause() instanceof MatrixMap.InvalidLengthException) {
+                MatrixMap.InvalidLengthException ile = (MatrixMap.InvalidLengthException) e.getCause();
+                assertEquals(MatrixMap.InvalidLengthException.Cause.ROW, ile.getCauseType());
+                assertEquals(0, ile.getLength());
+                throw e;
+            } else {
+                fail("Expected InvalidLengthException as cause");
+            }
+        }
     }
     
-    @Test(expected = MatrixMap.InvalidLengthException.class)
-    public void testInvalidColumnLength() throws MatrixMap.InvalidLengthException {
-        // This should throw an InvalidLengthException
-        MatrixMap.InvalidLengthException.requireNonEmpty(
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidColumnLength() {
+        MatrixMap.InvalidLengthException.requirePositive(
             MatrixMap.InvalidLengthException.Cause.COLUMN, -1);
     }
     

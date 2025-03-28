@@ -5,38 +5,27 @@ import java.util.logging.Logger;
 // May contain bug(s)
 public class Barricade {
 
-    public static final class StateRecoveryOptional<V> {
-        private final V value;
-        private final Exception exception;
-
-        public StateRecoveryOptional(V value, Exception exception) {
-            this.value = value;
-            this.exception = exception;
-        }
-
-        public V value() {
-            return value;
-        }
-
-        public Exception exception() {
-            return exception;
-        }
-    }
+    record StateRecoveryOptional<V>(V value, Exception exception) {}
 
     private static final Logger logger = Logger.getLogger(Barricade.class.getName());
 
-    final static <K extends Comparable<K>, V> StateRecoveryOptional<V> getWithStateVar(RoamingMap<K, V> roamingMap, K key) {
+    // 改名为 safeGet，更能表达通过状态校验获取值的意图
+    final static <K extends Comparable<K>, V> StateRecoveryOptional<V> safeGet(RoamingMap<K, V> roamingMap, K key) {
         Objects.requireNonNull(roamingMap);
         Objects.requireNonNull(key);
         Map<K, V> copy = new TreeMap<>();
         copy.putAll(roamingMap);
         Set<Map.Entry<K, V>> entrySetBefore = copy.entrySet();
-        V prevValue = entrySetBefore.stream().filter(entry -> Objects.equals(entry.getKey(), key)).map(Map.Entry::getValue).findFirst().orElse(null);
+        V prevValue = entrySetBefore.stream()
+                .filter(entry -> Objects.equals(entry.getKey(), key))
+                .map(Map.Entry::getValue)
+                .findFirst().orElse(null);
         V value = roamingMap.get(key);
         Set<Map.Entry<K, V>> entrySetAfter = correctEntrySet(roamingMap);
         if (!Objects.equals(entrySetBefore, entrySetAfter)) {
             throw new RuntimeException("get method of RoamingMap operated incorrectly");
         }
+        // 如果返回的值与原本预期不一致，则记录警告并返回正确的值
         if (!Objects.equals(prevValue, value)) {
             logger.log(Level.WARNING, "get method of RoamingMap returned incorrect value; correct value was used instead");
             return new StateRecoveryOptional<>(prevValue, null);
@@ -57,20 +46,26 @@ public class Barricade {
             logger.log(Level.WARNING, "size method of RoamingMap returned incorrect value; correct value was used instead");
             return prevSize;
         }
-        return prevSize;
+        return size;
     }
 
-    final static <K extends Comparable<K>, V> StateRecoveryOptional<V> putWithStateVar(RoamingMap<K, V> roamingMap, K key, V value) {
+    // 改名为 safePut，更能表达通过状态校验更新值的意图
+    final static <K extends Comparable<K>, V> StateRecoveryOptional<V> safePut(RoamingMap<K, V> roamingMap, K key, V value) {
         Objects.requireNonNull(roamingMap);
         Objects.requireNonNull(key);
         Objects.requireNonNull(value);
+        Map<K, V> copy = new TreeMap<>();
+        copy.putAll(roamingMap);
+        copy.put(key, value);
+        Set<Map.Entry<K, V>> prevRoamingSet = copy.entrySet();
         V lastValue = roamingMap.put(key, value);
-        V updatedValue = getWithStateVar(roamingMap, key).value();
-        if (!Objects.equals(updatedValue, value)) {
-            logger.log(Level.WARNING, "put method of RoamingMap failed to store the correct value");
+        V updatedValue = safeGet(roamingMap, key).value();
+        Set<Map.Entry<K, V>> newRoamingSet = correctEntrySet(roamingMap);
+        if (Objects.equals(updatedValue, value) && Objects.equals(prevRoamingSet, newRoamingSet)) {
+            return new StateRecoveryOptional<>(lastValue, null);
+        } else {
             throw new RuntimeException("put method of RoamingMap operated incorrectly");
         }
-        return new StateRecoveryOptional<>(lastValue, null);
     }
 
     final static <K extends Comparable<K>, V> Set<K> correctKeySet(RoamingMap<K, V> roamingMap) {

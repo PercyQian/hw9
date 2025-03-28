@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatrixMap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hw9</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">MatrixMap.java</span></div><h1>MatrixMap.java</h1><pre class="source lang-java linenums">import java.util.*;
+import java.util.function.Function;
+
+// May contain bug(s)
+public final class MatrixMap&lt;T&gt; {
+
+    // 内部异常类，修改了方法名称以符合 Java 命名习惯
+    public static class InvalidLengthException extends Exception {
+<span class="fc" id="L9">        public enum Cause {</span>
+<span class="fc" id="L10">            ROW,</span>
+<span class="fc" id="L11">            COLUMN</span>
+        }
+
+        private final Cause cause;
+        private final int length;
+
+<span class="fc" id="L17">        public InvalidLengthException(Cause cause, int length) {</span>
+<span class="fc" id="L18">            this.cause = cause;</span>
+<span class="fc" id="L19">            this.length = length;</span>
+<span class="fc" id="L20">        }</span>
+
+        public Cause getCauseType() {
+<span class="fc" id="L23">            return cause;</span>
+        }
+
+        public int getLength() {
+<span class="fc" id="L27">            return length;</span>
+        }
+
+        // 修改方法名称为 requirePositive，更符合其行为（要求正数）
+        public static int requirePositive(Cause cause, int length) {
+<span class="fc bfc" id="L32" title="All 2 branches covered.">            if(length &lt;= 0) {</span>
+<span class="fc" id="L33">                throw new IllegalArgumentException(new InvalidLengthException(cause, length));</span>
+            }
+<span class="fc" id="L35">            return length;</span>
+        }
+    }
+
+    private final RoamingMap&lt;Indexes, T&gt; matrix;
+
+<span class="fc" id="L41">    private MatrixMap(RoamingMap&lt;Indexes, T&gt; matrix) {</span>
+<span class="fc" id="L42">        this.matrix = matrix;</span>
+<span class="fc" id="L43">    }</span>
+
+    public static &lt;S&gt; MatrixMap&lt;S&gt; instance(int rows, int columns, Function&lt;Indexes, S&gt; valueMapper) {
+<span class="fc" id="L46">        Objects.requireNonNull(valueMapper);</span>
+<span class="fc" id="L47">        RoamingMap&lt;Indexes, S&gt; matrix = buildMatrix(rows, columns, valueMapper);</span>
+<span class="fc" id="L48">        return new MatrixMap&lt;&gt;(matrix);</span>
+    }
+
+    public static &lt;S&gt; MatrixMap&lt;S&gt; instance(Indexes size, Function&lt;Indexes, S&gt; valueMapper) {
+<span class="fc" id="L52">        Objects.requireNonNull(size);</span>
+<span class="fc" id="L53">        Objects.requireNonNull(valueMapper);</span>
+<span class="fc" id="L54">        RoamingMap&lt;Indexes, S&gt; matrix = buildMatrix(size.row(), size.column(), valueMapper);</span>
+<span class="fc" id="L55">        return new MatrixMap&lt;&gt;(matrix);</span>
+    }
+
+    public static &lt;S&gt; MatrixMap&lt;S&gt; constant(int size, S value) {
+<span class="fc" id="L59">        Objects.requireNonNull(value);</span>
+<span class="fc" id="L60">        return instance(size, size, indexes -&gt; value);</span>
+    }
+
+    public static &lt;S&gt; MatrixMap&lt;S&gt; identity(int size, S zero, S identity) {
+<span class="fc" id="L64">        Objects.requireNonNull(zero);</span>
+<span class="fc" id="L65">        Objects.requireNonNull(identity);</span>
+        // 修正了 lambda 表达式：对角线位置应为 identity，其他位置为 zero
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        return instance(size, size, indexes -&gt; (indexes.areDiagonal() ? identity : zero));</span>
+    }
+
+    public static &lt;S&gt; MatrixMap&lt;S&gt; from(S[][] matrix) {
+<span class="fc" id="L71">        Objects.requireNonNull(matrix);</span>
+<span class="fc" id="L72">        int columns = InvalidLengthException.requirePositive(InvalidLengthException.Cause.COLUMN, matrix[0].length);</span>
+<span class="fc" id="L73">        int rows = InvalidLengthException.requirePositive(InvalidLengthException.Cause.ROW, matrix.length);</span>
+<span class="fc" id="L74">        return instance(rows, columns, indexes -&gt; indexes.value(matrix));</span>
+    }
+
+    public Indexes size() {
+<span class="fc" id="L78">        int maxRow = -1;</span>
+<span class="fc" id="L79">        int maxCol = -1;</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        for (Indexes idx : Barricade.correctKeySet(matrix)) {</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">            if (idx.row() &gt; maxRow) {</span>
+<span class="fc" id="L82">                maxRow = idx.row();</span>
+            }
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            if (idx.column() &gt; maxCol) {</span>
+<span class="fc" id="L85">                maxCol = idx.column();</span>
+            }
+<span class="fc" id="L87">        }</span>
+<span class="fc" id="L88">        return new Indexes(maxRow + 1, maxCol + 1);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L93">        return Barricade.correctStringRepresentation(matrix);</span>
+    }
+
+    public T value(Indexes indexes) {
+<span class="fc" id="L97">        Objects.requireNonNull(indexes);</span>
+<span class="fc" id="L98">        return Barricade.safeGet(matrix, indexes).value();</span>
+    }
+
+    public T value(int row, int column) {
+<span class="fc" id="L102">        return value(new Indexes(row, column));</span>
+    }
+
+    private static &lt;S&gt; RoamingMap&lt;Indexes, S&gt; buildMatrix(int rows, int columns, Function&lt;Indexes, S&gt; valueMapper) {
+<span class="fc" id="L106">        int rowsNumber = InvalidLengthException.requirePositive(InvalidLengthException.Cause.ROW, rows);</span>
+<span class="fc" id="L107">        int columnsNumber = InvalidLengthException.requirePositive(InvalidLengthException.Cause.COLUMN, columns);</span>
+<span class="fc" id="L108">        RoamingMap&lt;Indexes, S&gt; matrix = new RoamingMap&lt;&gt;();</span>
+        // 使用 for 循环而不是 stream 来确保创建正确大小的矩阵
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        for (int i = 0; i &lt; rowsNumber; i++) {</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">            for (int j = 0; j &lt; columnsNumber; j++) {</span>
+<span class="fc" id="L112">                Indexes idx = new Indexes(i, j);</span>
+<span class="fc" id="L113">                S value = valueMapper.apply(idx);</span>
+<span class="fc" id="L114">                Barricade.safePut(matrix, idx, value);</span>
+            }
+        }
+<span class="fc" id="L117">        return matrix;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
